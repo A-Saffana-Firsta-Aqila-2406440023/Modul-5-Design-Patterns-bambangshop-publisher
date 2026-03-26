@@ -65,11 +65,11 @@ You can install Postman via this website: https://www.postman.com/downloads/
     -   [x] Commit: `Implement unsubscribe function in Notification controller.`
     -   [x] Write answers of your learning module's "Reflection Publisher-2" questions in this README.
 -   **STAGE 3: Implement notification mechanism**
-    -   [ ] Commit: `Implement update method in Subscriber model to send notification HTTP requests.`
-    -   [ ] Commit: `Implement notify function in Notification service to notify each Subscriber.`
-    -   [ ] Commit: `Implement publish function in Program service and Program controller.`
-    -   [ ] Commit: `Edit Product service methods to call notify after create/delete.`
-    -   [ ] Write answers of your learning module's "Reflection Publisher-3" questions in this README.
+    -   [x] Commit: `Implement update method in Subscriber model to send notification HTTP requests.`
+    -   [x] Commit: `Implement notify function in Notification service to notify each Subscriber.`
+    -   [x] Commit: `Implement publish function in Program service and Program controller.`
+    -   [x] Commit: `Edit Product service methods to call notify after create/delete.`
+    -   [x] Write answers of your learning module's "Reflection Publisher-3" questions in this README.
 
 ## Your Reflections
 This is the place for you to write reflections:
@@ -87,3 +87,8 @@ This is the place for you to write reflections:
 3. Postman is a huge help for this project because it lets me test API endpoints and check JSON responses without needing a frontend. I am especially interested in Postman Collections and Workspaces, since they make organizing and collaborating with my team much easier. On top of that, exploring its Automated Testing features will be a great way to make sure our code stays solid as our project grows.
 
 #### Reflection Publisher-3
+1. Push model is used in this tutorial. The `notify` function constructs a full `Notification` payload and pushes it directly to each subscriber via `subscriber_clone.update(payload_clone)`, meaning subscribers receive all the data without requesting it themselves.
+2. If Pull model were used instead:
+    - Advantage: Subscribers have more control. They can fetch only the data they need, reducing unnecessary data transfer if different subscribers require different information.
+    - Disadvantage: It adds complexity since each subscriber must hold a reference to the publisher and actively query it, increasing coupling and making the notification flow harder to trace in this context.
+3. Without multi-threading, each subscriber's `update()` would be called sequentially in a single thread, meaning the program would block and wait for one subscriber's notification to fully complete before moving to the next. If any subscriber's update is slow (e.g., due to network or I/O), the entire notification process stalls, causing significant delays especially when there are many subscribers.
