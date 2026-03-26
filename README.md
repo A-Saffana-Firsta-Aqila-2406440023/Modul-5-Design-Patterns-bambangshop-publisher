@@ -58,12 +58,12 @@ You can install Postman via this website: https://www.postman.com/downloads/
     -   [x] Commit: `Implement delete function in Subscriber repository.`
     -   [x] Write answers of your learning module's "Reflection Publisher-1" questions in this README.
 -   **STAGE 2: Implement services and controllers**
-    -   [ ] Commit: `Create Notification service struct skeleton.`
-    -   [ ] Commit: `Implement subscribe function in Notification service.`
-    -   [ ] Commit: `Implement subscribe function in Notification controller.`
-    -   [ ] Commit: `Implement unsubscribe function in Notification service.`
-    -   [ ] Commit: `Implement unsubscribe function in Notification controller.`
-    -   [ ] Write answers of your learning module's "Reflection Publisher-2" questions in this README.
+    -   [x] Commit: `Create Notification service struct skeleton.`
+    -   [x] Commit: `Implement subscribe function in Notification service.`
+    -   [x] Commit: `Implement subscribe function in Notification controller.`
+    -   [x] Commit: `Implement unsubscribe function in Notification service.`
+    -   [x] Commit: `Implement unsubscribe function in Notification controller.`
+    -   [x] Write answers of your learning module's "Reflection Publisher-2" questions in this README.
 -   **STAGE 3: Implement notification mechanism**
     -   [ ] Commit: `Implement update method in Subscriber model to send notification HTTP requests.`
     -   [ ] Commit: `Implement notify function in Notification service to notify each Subscriber.`
@@ -82,5 +82,8 @@ This is the place for you to write reflections:
 3. The Singleton pattern ensures that there is only one single instance of the subscribers shared across the entire application. This addresses the problem of global access and instance control. However, Singleton alone does not handle concurrent access. When multiple threads attempt to read from or write to this shared instance at the same time, it can lead to race conditions and data corruption. This is where DashMap is necessary. DashMap provides a thread-safe HashMap implementation. It ensures that concurrent operations can happen safely without conflicts. Therefore, even if we implement the Singleton pattern to guarantee a single instance of SUBSCRIBERS, we still need DashMap to ensure thread safety and efficient concurrent access.
 
 #### Reflection Publisher-2
+1. We separate the Service and Repository from the Model to follow the Single Responsibility Principle, ensuring the code is modular. The Repository focuses solely on data access, while the Service handles the business logic. This separation prevents the Model from becoming bloated and makes the entire system much easier to test and maintain.
+2. If we only use the Model, it quickly becomes a "fat model" that tightly couples data representation, business logic, and database operations. For example, a Notification model would need to directly include logic to fetch Subscriber lists and coordinate with a Program. This creates tangled, spaghetti-like code that drastically increases complexity and makes isolating bugs difficult.
+3. Postman is a huge help for this project because it lets me test API endpoints and check JSON responses without needing a frontend. I am especially interested in Postman Collections and Workspaces, since they make organizing and collaborating with my team much easier. On top of that, exploring its Automated Testing features will be a great way to make sure our code stays solid as our project grows.
 
 #### Reflection Publisher-3
