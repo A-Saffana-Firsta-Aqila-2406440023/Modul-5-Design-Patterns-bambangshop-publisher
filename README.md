@@ -48,15 +48,15 @@ You can install Postman via this website: https://www.postman.com/downloads/
     (You might want to use `cargo check` if you only need to verify your work without running the app.)
 
 ## Mandatory Checklists (Publisher)
--   [ ] Clone https://gitlab.com/ichlaffterlalu/bambangshop to a new repository.
+-   [x] Clone https://gitlab.com/ichlaffterlalu/bambangshop to a new repository.
 -   **STAGE 1: Implement models and repositories**
-    -   [ ] Commit: `Create Subscriber model struct.`
-    -   [ ] Commit: `Create Notification model struct.`
-    -   [ ] Commit: `Create Subscriber database and Subscriber repository struct skeleton.`
-    -   [ ] Commit: `Implement add function in Subscriber repository.`
-    -   [ ] Commit: `Implement list_all function in Subscriber repository.`
-    -   [ ] Commit: `Implement delete function in Subscriber repository.`
-    -   [ ] Write answers of your learning module's "Reflection Publisher-1" questions in this README.
+    -   [x] Commit: `Create Subscriber model struct.`
+    -   [x] Commit: `Create Notification model struct.`
+    -   [x] Commit: `Create Subscriber database and Subscriber repository struct skeleton.`
+    -   [x] Commit: `Implement add function in Subscriber repository.`
+    -   [x] Commit: `Implement list_all function in Subscriber repository.`
+    -   [x] Commit: `Implement delete function in Subscriber repository.`
+    -   [x] Write answers of your learning module's "Reflection Publisher-1" questions in this README.
 -   **STAGE 2: Implement services and controllers**
     -   [ ] Commit: `Create Notification service struct skeleton.`
     -   [ ] Commit: `Implement subscribe function in Notification service.`
@@ -77,6 +77,9 @@ This is the place for you to write reflections:
 ### Mandatory (Publisher) Reflections
 
 #### Reflection Publisher-1
+1. A single Model struct is enough. In this BambangShop case, every subscriber is treated exactly the same way. They just need a URL to receive notifications via HTTP. Because there is no variation in behavior, we don't need an interface (or trait in Rust) to handle different implementations.
+2. A Vec can store unique values, but ensuring uniqueness requires an inefficient O(n) linear search before every insertion. This means performance degrades as the data grows. In contrast, DashMap offers near O(1) time complexity for key-based lookups, insertions, and deletions. This makes checking and enforcing uniqueness significantly more efficient. Therefore, DashMap is a better choice for maintaining unique id and url values.
+3. The Singleton pattern ensures that there is only one single instance of the subscribers shared across the entire application. This addresses the problem of global access and instance control. However, Singleton alone does not handle concurrent access. When multiple threads attempt to read from or write to this shared instance at the same time, it can lead to race conditions and data corruption. This is where DashMap is necessary. DashMap provides a thread-safe HashMap implementation. It ensures that concurrent operations can happen safely without conflicts. Therefore, even if we implement the Singleton pattern to guarantee a single instance of SUBSCRIBERS, we still need DashMap to ensure thread safety and efficient concurrent access.
 
 #### Reflection Publisher-2
 
